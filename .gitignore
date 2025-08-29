@@ -11,3 +11,6 @@ __pycache__/
 
 # 개인 설정 파일
 settings_local.py
+
+simpleDivergence.cu
+results.py
