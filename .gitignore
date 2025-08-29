@@ -1,6 +1,5 @@
 # 가상환경 폴더 무시
 venv/
-.env/
 
 # Python 캐시 파일
 __pycache__/
@@ -14,3 +13,5 @@ settings_local.py
 
 simpleDivergence.cu
 results.py
+
+*.dat
