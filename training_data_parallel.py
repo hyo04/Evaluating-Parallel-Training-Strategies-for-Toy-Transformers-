@@ -8,7 +8,6 @@ import torch.nn.functional as F
 from collections import deque
 import pynvml 
 
-
 #--------------------------------------MODEL-----------------------------------------
 
 # --- Config ---
