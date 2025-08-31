@@ -11,7 +11,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 ## Results 
 ### Sequence length VS Throughput 
 
-<img src="graphs/seq_throughput.png" alt="Sequence length vs Throughput" width="400"/>
+<img src="graphs/seq_throughput.png" alt="Sequence length vs Throughput" width="600"/>
 
 
 
