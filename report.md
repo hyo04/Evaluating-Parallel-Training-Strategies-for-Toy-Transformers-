@@ -19,7 +19,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 ## 2. Sequence length
 ### Sequence length VS Raw Throughput & Per GPU Throughput
 
-<img src="graphs/seq_len_raw_gpu_throughput" alt="Sequence length VS Raw Throughput & Per GPU Throughput" width="600"/>
+<img src="graphs/seq_len_raw_gpu_throughput.png" alt="Sequence length VS Raw Throughput & Per GPU Throughput" width="600"/>
 
 ## 3. Number of layers VS Throughput
 
