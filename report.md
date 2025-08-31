@@ -12,7 +12,12 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 ## 1. Batch size VS Throughput 
 
-<img src="graphs/batch_size_throughput.png" alt="Batch size vs Throughput" width="600"/>
+### Batch size VS Raw Throughput & Per GPU Throughput
+
+<img src="graphs/batch_size_raw_gpu_throughput.png" alt="Batch size VS Raw Throughput & Per GPU Throughput" width="600"/>
+
+### Batch size VS Raw Throughput & GPU Utilization
+<img src="graphs/batch_size_throughput_util.png" alt="Batch size VS Raw Throughput & GPU Utilization" width="600"/>
 
 -**Observation**
 
@@ -27,7 +32,14 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 ## 3. Number of layers VS Throughput
 
-<img src="graphs/n_layers_throughput.png" alt="Number of layers vs Throughput" width="600"/>
+### Number of layers VS Raw Throughput & Per GPU Throughput
+
+<img src="graphs/n_layers_raw_gpu_throughput.png" alt="Number of layers VS Raw Throughput & Per GPU Throughput" width="600"/>
+
+### Number of layers VS Raw Throughput & GPU Utilization
+<img src="graphs/n_layers_throughput_util.png" alt="Number of layers VS Raw Throughput & GPU Utilization" width="600"/>
+
+
 
 ## 4. Micro batch size VS Throughput (pipeline parallelism)
 ### Effect of Micro-batch Size
