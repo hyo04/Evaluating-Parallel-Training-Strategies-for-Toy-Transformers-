@@ -16,9 +16,10 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 -**Observation**
 
-## 2. Sequence length VS Throughput
+## 2. Sequence length
+### Sequence length VS Raw Throughput & Per GPU Throughput
 
-<img src="graphs/seq_throughput.png" alt="Sequence length vs Throughput" width="600"/>
+<img src="graphs/seq_len_raw_gpu_throughput" alt="Sequence length VS Raw Throughput & Per GPU Throughput" width="600"/>
 
 ## 3. Number of layers VS Throughput
 
@@ -33,3 +34,15 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 | 6 | [20.4, 11.6] | 31863.8 | [3035, 1881] |
 | 8 | [25.2, 15.6] | 32207.5 | [3033, 1911] |
 | 16 | [18.0, 14.8] | 33428.9 | [3243, 2007] |
+
+## 5. Key Takeaways
+- **Data parallelism** provides the best throughput and utilization across most scenarios.  
+- **Pipeline parallelism** benefits from longer sequences and micro-batching, but suffers from communication overhead.  
+- **Sequential execution** is simple but inefficient, limited by single GPU performance.  
+
+---
+
+## Next Steps
+- Extend experiments to **hybrid parallelism** (data + pipeline).
+- Explore **model parallelism** (tensor-slicing).
+- Compare scaling behavior on larger models (beyond toy Transformers).
