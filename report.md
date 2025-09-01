@@ -10,6 +10,8 @@ This report summarizes experiments on **Sequential execution**, **Data Paralleli
 
 Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model configuration with vocab_size = 1000, seq_len = 256, d_model = 512, n_heads = 8, n_layers = 12, ffn_mult = 4, dropout = 0.1, batch_size = 32.
 
+---
+
 ## 1. Batch size VS Throughput 
 
 ### Batch size VS Raw Throughput & Per GPU Throughput
@@ -25,6 +27,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 - While data parallelism is advantageous for maximizing total throughput, its lower per-GPU efficiency indicates that it may not be the optimal choice when GPU resources are limited or costly.
 - Pipeline parallelism proves to be highly sensitive to micro-batch size tuning. Without proper tuning, it suffers from low GPU utilization due to bubble overhead. However, with the right configuration (e.g., larger sequence length or optimized micro-batching), pipeline parallelism can close this gap and become competitive.
 
+---
 
 ## 2. Sequence length
 ### Sequence length VS Raw Throughput & Per GPU Throughput
@@ -36,6 +39,8 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 **Observation**
 - WHile sequential execution exhibits a decrease in the raw and per-GPU throughput, pipeline parallelism exhibits an increase across raw throughput, per-GPU throughput, and per-GPU utilization as the sequence length increase. This shows that pipeline parallelism is more beneficial for longer sequence lengths and that its performance could potentially overcome other training methods when longer sequence lengths are used. 
+
+---
 
 ## 3. Number of layers VS Throughput
 
@@ -50,6 +55,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 - Similar to the observation for varying sequence lengths, although the sequential execution shows the highest raw throughput, it also experiences the lowest GPU utilization for all ranges of the layer depths. 
 - It's clear that not only does pipeline parallelism have the lowest throughput out of all three methods, but it also expreiences a gradual decreasing thhroughput as the number of layers increase. This trend suggests that memory pressure is a potential bottleneck for pipeline parallelism. Since each additional layer introduces its own trainable weights, activations, and intermediate states, even a small increase in the layer count imposes a significant memory load on the system. 
 
+---
 
 ## 4. Micro batch size VS Throughput (pipeline parallelism)
 ### Effect of Micro-batch Size
@@ -64,6 +70,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 | 8 | [25.2, 15.6] | 32207.5 | [3033, 1911] |
 | 16 | [18.0, 14.8] | 33428.9 | [3243, 2007] |
 
+---
 
 ## 5. Key Takeaways
 - All three methods of training present the same results:
@@ -91,7 +98,7 @@ These quantitative results demonstrate that parallelization efficiency depends h
 - **Model size**: The Transformer configuration was inevitably small (d_model=512, n_layers=12) for tractability, which may not fully capture scaling behavior of large language models.  
 - **Metrics**: Focused on throughput and utilization; communication overhead, latency, and energy efficiency were not profiled.
 
----
+c
 
 ## 8. Future Work
 To extend this analysis and gain more insight about real-life large-scale training:
