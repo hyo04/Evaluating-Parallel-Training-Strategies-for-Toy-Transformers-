@@ -72,3 +72,36 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
     - Pipeline parallelism benefits from longer sequences and micro-batching, but requires tuning and in order to out perform other methods of parallelism. 
 
 ---
+
+## 6. Experimental Significance
+Although most of these results align with well-known theoretical expectations, the experiments provide **empirical confirmation** of how parallelization strategies behave in practice on commodity GPUs (NVIDIA GeForce RTX 2080).  
+By directly measuring throughput and utilization, this report bridges the gap between theory and practice, showing how textbook trade-offs manifest under realistic hardware and implementation constraints.
+
+For example:
+- At batch size = 64, data parallelism achieves ~2.5× higher raw throughput compared to sequential execution, but only ~0.6× per-GPU efficiency.  
+- With 16 micro-batches in pipeline parallelism, throughput improves by ~2.7× compared to 2 micro-batches, highlighting the impact of bubble overhead mitigation.  
+
+These quantitative results demonstrate that parallelization efficiency depends heavily on both workload configuration and tuning choices.
+
+---
+
+## 7. Limitations
+- **Scale of hardware**: Experiments were limited to 2 NVIDIA RTX 2080 GPUs, which does not reflect large-scale training environments (e.g., 8–64 GPUs or A100/H100 clusters).  
+- **Parallelism scope**: Only sequential, data parallelism, and pipeline parallelism were tested. Tensor parallelism and hybrid strategies were not explored.  
+- **Model size**: The Transformer configuration was inevitably small (d_model=512, n_layers=12) for tractability, which may not fully capture scaling behavior of large language models.  
+- **Metrics**: Focused on throughput and utilization; communication overhead, latency, and energy efficiency were not profiled.
+
+---
+
+## 8. Future Work
+To extend this analysis and gain more insight about real-life large-scale training:
+- **Scaling studies**: Extend experiments to 8+ GPUs and more powerful hardware (A100/H100) to assess interconnect and communication bottlenecks.  
+- **Hybrid parallelism**: Investigate combinations of data, tensor, and pipeline parallelism to better understand trade-offs.  
+- **Larger models**: Repeat experiments with larger Transformer variants (e.g., d_model ≥ 2048, n_layers ≥ 48) to capture real-world training challenges.  
+- **Profiling tools**: Incorporate tools such as NVIDIA Nsight Systems or PyTorch Profiler to analyze kernel-level inefficiencies and communication overhead.  
+- **Mixed precision training**: Compare FP32 vs. FP16/BF16 to study the impact on throughput and utilization.  
+
+---
+
+
+
