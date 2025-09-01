@@ -98,7 +98,7 @@ These quantitative results demonstrate that parallelization efficiency depends h
 - **Model size**: The Transformer configuration was inevitably small (d_model=512, n_layers=12) for tractability, which may not fully capture scaling behavior of large language models.  
 - **Metrics**: Focused on throughput and utilization; communication overhead, latency, and energy efficiency were not profiled.
 
-c
+---
 
 ## 8. Future Work
 To extend this analysis and gain more insight about real-life large-scale training:
