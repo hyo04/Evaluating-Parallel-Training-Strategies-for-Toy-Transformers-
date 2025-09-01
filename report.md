@@ -43,6 +43,9 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 ## 4. Micro batch size VS Throughput (pipeline parallelism)
 ### Effect of Micro-batch Size
+
+<img src="graphs/micro_batch_size_throughput_util.png" alt="Micro-batch size VS Raw Throughput & GPU Utilization" width="600"/>
+
 | Micro-batch size | GPU Utilization (%) | Avg Throughput (tokens/sec) | Max GPU memory (MB) |
 |------------------|---------------------|-----------------------------|----------------------|
 | 2 | [26.8, 16.2] | 12437.8 | [2929, 1797] |
@@ -50,6 +53,7 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 | 6 | [20.4, 11.6] | 31863.8 | [3035, 1881] |
 | 8 | [25.2, 15.6] | 32207.5 | [3033, 1911] |
 | 16 | [18.0, 14.8] | 33428.9 | [3243, 2007] |
+
 
 ## 5. Key Takeaways
 - **Data parallelism** provides the best throughput and utilization across most scenarios.  
