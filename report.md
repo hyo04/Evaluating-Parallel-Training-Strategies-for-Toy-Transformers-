@@ -24,7 +24,6 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 - Sequential execution achieves the highest per-GPU throughput and demonstrates significantly improved GPU utilization as the batch size increases. This suggests that sequential execution is more effective in maximizing resource usage when scaling batch size.
 - While data parallelism is advantageous for maximizing total throughput, its lower per-GPU efficiency indicates that it may not be the optimal choice when GPU resources are limited or costly.
 - Pipeline parallelism proves to be highly sensitive to micro-batch size tuning. Without proper tuning, it suffers from low GPU utilization due to bubble overhead. However, with the right configuration (e.g., larger sequence length or optimized micro-batching), pipeline parallelism can close this gap and become competitive.
-- Overall, the results highlight that no single parallelism strategy dominates in all scenarios. Instead, the choice of strategy depends on the workload characteristics (batch size, sequence length, number of layers) and the optimization objective (total throughput vs. per-GPU efficiency).
 
 
 ## 2. Sequence length
@@ -35,6 +34,8 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 ### Sequence length VS Raw Throughput & GPU Utilization
 <img src="graphs/seq_len_throughput_util.png" alt="Sequence length VS Raw Throughput & GPU Utilization" width="600"/>
 
+**Observation**
+- WHile sequential execution exhibits a decrease in the raw and per-GPU throughput, pipeline parallelism exhibits an increase across raw throughput, per-GPU throughput, and per-GPU utilization as the sequence length increase. This shows that pipeline parallelism is more beneficial for longer sequence lengths and that its performance could potentially overcome other training methods when longer sequence lengths are used. 
 
 ## 3. Number of layers VS Throughput
 
@@ -45,6 +46,9 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 ### Number of layers VS Raw Throughput & GPU Utilization
 <img src="graphs/n_layers_throughput_util.png" alt="Number of layers VS Raw Throughput & GPU Utilization" width="600"/>
 
+**Observation**
+- Similar to the observation for varying sequence lengths, although the sequential execution shows the highest raw throughput, it also experiences the lowest GPU utilization for all ranges of the layer depths. 
+- It's clear that not only does pipeline parallelism have the lowest throughput out of all three methods, but it also expreiences a gradual decreasing thhroughput as the number of layers increase. This trend suggests that memory pressure is a potential bottleneck for pipeline parallelism. Since each additional layer introduces its own trainable weights, activations, and intermediate states, even a small increase in the layer count imposes a significant memory load on the system. 
 
 
 ## 4. Micro batch size VS Throughput (pipeline parallelism)
@@ -62,13 +66,9 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 
 
 ## 5. Key Takeaways
-- **Data parallelism** provides the best throughput and utilization across most scenarios.  
-- **Pipeline parallelism** benefits from longer sequences and micro-batching, but suffers from communication overhead.  
-- **Sequential execution** is simple but inefficient, limited by single GPU performance.  
+- All three methods of training present the same results:
+    - Data parallelism presents the highest raw throughput, but the lowest per-GPU utilization across most cases.
+    - Sequential execution presents the highest per-GPU utilization and per-GPU throughput. 
+    - Pipeline parallelism benefits from longer sequences and micro-batching, but requires tuning and in order to out perform other methods of parallelism. 
 
 ---
-
-## Next Steps
-- Extend experiments to **hybrid parallelism** (data + pipeline).
-- Explore **model parallelism** (tensor-slicing).
-- Compare scaling behavior on larger models (beyond toy Transformers).
