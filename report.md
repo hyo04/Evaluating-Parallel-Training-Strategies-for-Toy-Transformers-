@@ -19,7 +19,13 @@ Results were measured on two NVIDIA GeForce RTX 2080 GPUs with a baseline model 
 ### Batch size VS Raw Throughput & GPU Utilization
 <img src="graphs/batch_size_throughput_util.png" alt="Batch size VS Raw Throughput & GPU Utilization" width="600"/>
 
--**Observation**
+**Observation**
+- Data parallelism consistently shows the highest raw throughput across all measured batch sizes. However, when normalized per GPU, its efficiency drops, highlighting a trade-off between maximizing total system throughput and ensuring per-device efficiency.
+- Sequential execution achieves the highest per-GPU throughput and demonstrates significantly improved GPU utilization as the batch size increases. This suggests that sequential execution is more effective in maximizing resource usage when scaling batch size.
+- While data parallelism is advantageous for maximizing total throughput, its lower per-GPU efficiency indicates that it may not be the optimal choice when GPU resources are limited or costly.
+- Pipeline parallelism proves to be highly sensitive to micro-batch size tuning. Without proper tuning, it suffers from low GPU utilization due to bubble overhead. However, with the right configuration (e.g., larger sequence length or optimized micro-batching), pipeline parallelism can close this gap and become competitive.
+- Overall, the results highlight that no single parallelism strategy dominates in all scenarios. Instead, the choice of strategy depends on the workload characteristics (batch size, sequence length, number of layers) and the optimization objective (total throughput vs. per-GPU efficiency).
+
 
 ## 2. Sequence length
 ### Sequence length VS Raw Throughput & Per GPU Throughput
